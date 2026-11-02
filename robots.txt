@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://diankuanghuolong.github.io/fastener-tools/sitemap.xml

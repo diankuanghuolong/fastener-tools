@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mm to Inch Converter — Metric/Imperial with Fractions</title>
+<meta name="description" content="Live millimeter to inch converter with 1/64-inch fractions, inch to millimeter conversion, and common metric-to-UNC bolt size substitutions.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">Fastener<span>Tools</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="bolt-torque-calculator.html">Torque Calculator</a>
+      <a href="bolt-size-chart.html">Size Charts</a>
+      <a href="thread-pitch-table.html">Threads &amp; Tap Drill</a>
+      <a href="standards-cross-reference.html">Standards</a>
+      <a href="unit-converter.html">Converter</a>
+      <a class="cta" href="contact.html">Request a Quote</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap">
+    <h1 style="margin:34px 0 6px;font-size:clamp(28px,4vw,40px);letter-spacing:-.6px">mm ↔ Inch Converter</h1>
+    <p class="lede">Type a value in either box — results update as you type, with the nearest 1/64" fraction for imperial work.</p>
+
+    <div class="calc">
+      <div>
+        <div class="field">
+          <label for="mmIn">Millimeters → inches</label>
+          <input id="mmIn" type="number" step="any" value="25.4" inputmode="decimal">
+        </div>
+        <div class="result">
+          <div class="big" id="mmOut">—</div>
+          <div class="sub" id="mmFrac">—</div>
+        </div>
+      </div>
+      <div>
+        <div class="field">
+          <label for="inIn">Inches → millimeters</label>
+          <input id="inIn" type="number" step="any" value="1" inputmode="decimal">
+        </div>
+        <div class="result">
+          <div class="big" id="inOut">—</div>
+          <div class="sub">1 inch = 25.4 mm exactly</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <h2>Common fastener conversions</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th class="num">mm</th><th class="num">Inches (decimal)</th><th class="num">Nearest fraction</th><th>Typical fastener context</th></tr></thead>
+          <tbody>
+            <tr><td class="num">6.35</td><td class="num">0.2500"</td><td class="num">1/4"</td><td>1/4"-20 UNC bolt</td></tr>
+            <tr><td class="num">7.94</td><td class="num">0.3125"</td><td class="num">5/16"</td><td>5/16"-18 UNC bolt</td></tr>
+            <tr><td class="num">9.53</td><td class="num">0.3750"</td><td class="num">3/8"</td><td>3/8"-16 UNC bolt</td></tr>
+            <tr><td class="num">12.70</td><td class="num">0.5000"</td><td class="num">1/2"</td><td>1/2"-13 UNC bolt</td></tr>
+            <tr><td class="num">15.88</td><td class="num">0.6250"</td><td class="num">5/8"</td><td>5/8"-11 UNC bolt</td></tr>
+            <tr><td class="num">19.05</td><td class="num">0.7500"</td><td class="num">3/4"</td><td>3/4"-10 UNC bolt</td></tr>
+            <tr><td class="num">25.40</td><td class="num">1.0000"</td><td class="num">1"</td><td>1"-8 UNC bolt</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Metric ↔ UNC bolt substitutions (approximate)</h2>
+      <p>When the exact size isn't stocked, these are the closest inch-for-metric swaps used in practice — diameter is close, but threads are NOT interchangeable; the tapped hole must match whichever you use.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Metric</th><th class="num">Diameter</th><th>Closest UNC</th><th class="num">Diameter</th><th class="num">Diameter difference</th></tr></thead>
+          <tbody>
+            <tr><td class="hl">M6</td><td class="num">6.00 mm</td><td>1/4"-20</td><td class="num">6.35 mm</td><td class="num">+0.35 mm</td></tr>
+            <tr><td class="hl">M8</td><td class="num">8.00 mm</td><td>5/16"-18</td><td class="num">7.94 mm</td><td class="num">−0.06 mm</td></tr>
+            <tr><td class="hl">M10</td><td class="num">10.00 mm</td><td>3/8"-16</td><td class="num">9.53 mm</td><td class="num">−0.47 mm</td></tr>
+            <tr><td class="hl">M12</td><td class="num">12.00 mm</td><td>1/2"-13</td><td class="num">12.70 mm</td><td class="num">+0.70 mm</td></tr>
+            <tr><td class="hl">M14</td><td class="num">14.00 mm</td><td>9/16"-12</td><td class="num">14.29 mm</td><td class="num">+0.29 mm</td></tr>
+            <tr><td class="hl">M16</td><td class="num">16.00 mm</td><td>5/8"-11</td><td class="num">15.88 mm</td><td class="num">−0.12 mm</td></tr>
+            <tr><td class="hl">M20</td><td class="num">20.00 mm</td><td>3/4"-10</td><td class="num">19.05 mm</td><td class="num">−0.95 mm</td></tr>
+            <tr><td class="hl">M24</td><td class="num">24.00 mm</td><td>15/16"-12 / 1"-8</td><td class="num">23.81 / 25.40 mm</td><td class="num">−0.19 / +1.40 mm</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Reference constants</h2>
+      <div class="kv">
+        <div class="item"><div class="k">1 inch</div><div class="v">25.4 mm exactly</div></div>
+        <div class="item"><div class="k">1 mm</div><div class="v">0.0393701 in</div></div>
+        <div class="item"><div class="k">1 N·m</div><div class="v">0.737562 lb·ft</div></div>
+        <div class="item"><div class="k">1 MPa</div><div class="v">145.038 psi</div></div>
+      </div>
+
+      <h2>FAQ</h2>
+      <details class="faq">
+        <summary>Is an M12 bolt the same as 1/2"?</summary>
+        <p>No. 1/2" = 12.7 mm, so a 1/2" bolt is noticeably fatter than M12 (12.0 mm). They are only rough substitutes, and their threads never mesh — see the substitution table above with exact differences.</p>
+      </details>
+      <details class="faq">
+        <summary>Why do my decimal inches not match the drill chart?</summary>
+        <p>Machine shop charts use fractions (1/64" increments) and letter/number drill sizes. Use the fraction column above, or our <a href="thread-pitch-table.html">tap drill chart</a> which lists both.</p>
+      </details>
+
+      <p style="margin-top:26px">Mixed metric/imperial drawings on your desk? We supply both. <a href="contact.html">Request a quote →</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fnav">
+      <a href="index.html">Home</a>
+      <a href="bolt-torque-calculator.html">Torque Calculator</a>
+      <a href="bolt-size-chart.html">Size Charts</a>
+      <a href="thread-pitch-table.html">Thread &amp; Tap Drill</a>
+      <a href="standards-cross-reference.html">Standards</a>
+      <a href="contact.html">Request a Quote</a>
+    </div>
+    <p>© <span data-year>2026</span> FastenerTools · 1 in = 25.4 mm exactly (international inch, 1959).</p>
+  </div>
+</footer>
+<script src="assets/main.js"></script>
+</body>
+</html>

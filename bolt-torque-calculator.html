@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bolt Torque Calculator — M4 to M24, Grades 4.8–12.9</title>
+<meta name="description" content="Free online bolt torque calculator: tightening torque in N·m and lb·ft for metric bolts M4–M24 in property classes 4.8, 5.8, 8.8, 10.9 and 12.9, with dry/oiled/lubricated torque factors.">
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebApplication",
+  "name":"Bolt Torque Calculator",
+  "url":"bolt-torque-calculator.html",
+  "applicationCategory":"UtilitiesApplication",
+  "operatingSystem":"Any",
+  "browserRequirements":"Requires JavaScript",
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "description":"Calculate metric bolt tightening torque T = K × F × d for M4–M24 bolts in grades 4.8 to 12.9."
+}
+</script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">Fastener<span>Tools</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="bolt-torque-calculator.html">Torque Calculator</a>
+      <a href="bolt-size-chart.html">Size Charts</a>
+      <a href="thread-pitch-table.html">Threads &amp; Tap Drill</a>
+      <a href="standards-cross-reference.html">Standards</a>
+      <a href="unit-converter.html">Converter</a>
+      <a class="cta" href="contact.html">Request a Quote</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap">
+    <h1 style="margin:34px 0 6px;font-size:clamp(28px,4vw,40px);letter-spacing:-.6px">Bolt Torque Calculator</h1>
+    <p class="lede">Tightening torque for metric hex bolts M4–M24, property classes 4.8 to 12.9. Pick the size, grade, lubrication condition and target preload — the torque and the full working are shown instantly.</p>
+
+    <div class="calc">
+      <div>
+        <div class="field">
+          <label for="diameter">Bolt size (metric, coarse thread)</label>
+          <select id="diameter"></select>
+        </div>
+        <div class="field">
+          <label for="grade">Property class (ISO 898-1)</label>
+          <select id="grade">
+            <option value="4.8">4.8 — general purpose</option>
+            <option value="5.8">5.8 — general purpose</option>
+            <option value="8.8" selected>8.8 — high strength (most common)</option>
+            <option value="10.9">10.9 — high strength, quenched &amp; tempered</option>
+            <option value="12.9">12.9 — highest common class</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="kfactor">Thread condition (torque factor K)</label>
+          <select id="kfactor">
+            <option value="dry" selected>Dry / as received — K = 0.20</option>
+            <option value="oiled">Lightly oiled — K = 0.15</option>
+            <option value="lubed">Lubricated (moly / anti-seize) — K = 0.12</option>
+          </select>
+          <div class="hint">Friction dominates torque accuracy: same bolt, same torque, up to ±30% difference in preload between dry and lubricated.</div>
+        </div>
+        <div class="field">
+          <label for="preload">Target preload (% of proof strength)</label>
+          <select id="preload">
+            <option value="70">70% — light, reusable joint</option>
+            <option value="75" selected>75% — typical reusable joint</option>
+            <option value="90">90% — permanent / critical joint</option>
+          </select>
+          <div class="hint">Proof strength Sp: 4.8 → 310, 5.8 → 380, 8.8 → 580, 10.9 → 830, 12.9 → 970 MPa (ISO 898-1).</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="result">
+          <div style="font-size:13.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)">Tightening torque</div>
+          <div class="big"><span id="outTorque">—</span><span class="unit" id="outTorqueUnit">N·m</span></div>
+          <div class="row"><span>Imperial</span><b id="outFtLb">—</b></div>
+          <div class="row"><span>Preload force F</span><b id="outForce">—</b></div>
+          <div class="row"><span>Proof strength Sp</span><b id="outProof">—</b></div>
+          <div class="row"><span>Tensile stress area As</span><b id="outAs">—</b></div>
+          <div class="row"><span>Spanner size (across flats)</span><b id="outSpanner">—</b></div>
+          <div class="row"><span>Torque factor</span><b id="outK">—</b></div>
+        </div>
+        <div class="formula" id="outFormula">—</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <b>Reference only.</b> This is a first-pass engineering estimate. Real joints vary with thread tolerance, plating, hole clearance, washer condition and joint stiffness. For safety-critical or production joints, validate on a test assembly or apply VDI 2230.
+    </div>
+
+    <div class="prose">
+      <h2>How the calculation works</h2>
+      <p>The classic torque-preload relation:</p>
+      <div class="formula">T = K × F × d</div>
+      <ul>
+        <li><b>T</b> — tightening torque (N·m)</li>
+        <li><b>K</b> — torque coefficient (nut factor). 0.20 dry steel, 0.15 oiled, 0.12 with moly/anti-seize. Some standards use 0.16 as a neutral default.</li>
+        <li><b>F</b> — target preload force (N) = preload% × proof strength Sp × tensile stress area As</li>
+        <li><b>d</b> — nominal bolt diameter (m)</li>
+      </ul>
+      <p>Tensile stress area comes from the ISO 898-1 relation <i>As = 0.7854 × (d − 0.9743/n)²</i> where n is threads per mm — the values in this calculator match the standard published tables (M8 → 36.6 mm², M10 → 58.0 mm², M12 → 84.3 mm²).</p>
+
+      <h2>Quick reference: common torque values (8.8, dry, 75% preload)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Size</th><th class="num">Torque (N·m)</th><th class="num">Torque (lb·ft)</th><th class="num">Preload (kN)</th><th>Spanner</th></tr></thead>
+          <tbody>
+            <tr><td class="hl">M6</td><td class="num">10.5</td><td class="num">7.7</td><td class="num">8.7</td><td>10 mm</td></tr>
+            <tr><td class="hl">M8</td><td class="num">25.5</td><td class="num">18.8</td><td class="num">15.9</td><td>13 mm</td></tr>
+            <tr><td class="hl">M10</td><td class="num">50.5</td><td class="num">37.3</td><td class="num">25.2</td><td>17 mm</td></tr>
+            <tr><td class="hl">M12</td><td class="num">88.0</td><td class="num">64.9</td><td class="num">36.7</td><td>19 mm</td></tr>
+            <tr><td class="hl">M16</td><td class="num">226</td><td class="num">167</td><td class="num">68.5</td><td>24 mm</td></tr>
+            <tr><td class="hl">M20</td><td class="num">441</td><td class="num">325</td><td class="num">106.6</td><td>30 mm</td></tr>
+            <tr><td class="hl">M24</td><td class="num">770</td><td class="num">568</td><td class="num">153.1</td><td>36 mm</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="scroll-hint">K = 0.20, preload 75% of proof strength. Lubricate (K = 0.15) and these drop by 25%.</p>
+
+      <h2>Torque factor cheat sheet</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Condition</th><th class="num">K</th><th>Typical case</th></tr></thead>
+          <tbody>
+            <tr><td class="hl">Dry / as received</td><td class="num">0.20</td><td>Plain black oxide or bright steel bolts, no lubrication</td></tr>
+            <tr><td class="hl">Lightly oiled</td><td class="num">0.15</td><td>Bolts with light machining oil or rust preventive</td></tr>
+            <tr><td class="hl">Lubricated</td><td class="num">0.12</td><td>Moly paste, anti-seize, PTFE-coated threads</td></tr>
+            <tr><td>Hot-dip galvanized</td><td class="num">0.12–0.16</td><td>Varies with coating thickness — test before production</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>FAQ</h2>
+      <details class="faq">
+        <summary>Why is my joint still loose at the recommended torque?</summary>
+        <p>Usually friction is higher than assumed (dry threads, rust, plating), the nut is turning on the flange rather than the threads, or the joint relaxed after first loading. Re-torque after the first thermal/mechanical cycle, or measure actual preload with a load-cell bolt or strain gauge.</p>
+      </details>
+      <details class="faq">
+        <summary>Should I torque to yield?</summary>
+        <p>No — for 90%+ preload you are close to the proof load; beyond ~95% you risk permanently stretching the bolt (turn-of-nut / yield-controlled tightening is a specialized procedure). For most reusable machinery joints, 65–75% of proof strength is the sweet spot.</p>
+      </details>
+      <details class="faq">
+        <summary>How do grade 8.8 and SAE J429 Grade 5 compare?</summary>
+        <p>Roughly equivalent: 8.8 (800 MPa tensile) ≈ Grade 5 (830 MPa). Metric 10.9 ≈ Grade 8 (1040 MPa). Don't mix imperial and metric markings on one joint — see the <a href="standards-cross-reference.html">standards cross-reference</a>.</p>
+      </details>
+
+      <p style="margin-top:26px">Need these in bulk, to a specific standard or plating? <a href="contact.html">Request a factory quote →</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fnav">
+      <a href="index.html">Home</a>
+      <a href="bolt-size-chart.html">Size Charts</a>
+      <a href="thread-pitch-table.html">Thread &amp; Tap Drill</a>
+      <a href="standards-cross-reference.html">Standards</a>
+      <a href="unit-converter.html">Converter</a>
+      <a href="contact.html">Request a Quote</a>
+    </div>
+    <p>© <span data-year>2026</span> FastenerTools · Torque values per T = K·F·d with ISO 898-1 proof strengths. Reference only — verify before production use.</p>
+  </div>
+</footer>
+<script src="assets/main.js"></script>
+</body>
+</html>
